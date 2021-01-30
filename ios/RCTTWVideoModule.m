@@ -179,6 +179,14 @@ RCT_EXPORT_METHOD(startLocalVideo) {
   if (self.camera == nil) {
     return;
   }
+
+  TVIVideoFormat * videoFormat = [[TVIVideoFormat alloc] init];
+  CMVideoDimensions dimensions;
+  dimensions.height = 720;
+  dimensions.width = 720;
+  videoFormat.dimensions = dimensions;
+  [self.camera requestOutputFormat:videoFormat];
+
   AVCaptureDevice *camera = [TVICameraSource captureDeviceForPosition:AVCaptureDevicePositionFront];
   [self.camera startCaptureWithDevice:camera completion:^(AVCaptureDevice *device,
           TVIVideoFormat *startFormat,
